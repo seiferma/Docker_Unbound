@@ -11,10 +11,10 @@ ENV_VAR_NAMES=$(printenv | sed 's;=.*;;' | sort)
 /usr/bin/update-dns-root-hints
 
 
-# Create DoT/DoH config
-touch $CFG_DIR/dot-and-doh.conf
+# Create DoT config
+touch $CFG_DIR/dot.conf
 if [ ! -z ${DOT_ENABLE+x} ]; then
-    echo "include: /etc/unbound/default.dot-and-doh.conf" > $CFG_DIR/dot-and-doh.conf
+    echo "include: /etc/unbound/default.dot.conf" > $CFG_DIR/dot.conf
 fi
 
 
