@@ -46,5 +46,10 @@ if [[ "$ENV_VAR_NAMES" == "ACCESS_CONTROL_"* ]]; then
 fi
 
 
+# Create socket directory
+mkdir -p /run/unbound/
+chown $PUID:$PGID /run/unbound/
+
+
 # Start Unbound
 exec su-exec $PUID:$PGID /usr/sbin/unbound -d -p
