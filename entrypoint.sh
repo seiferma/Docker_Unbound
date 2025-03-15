@@ -17,6 +17,12 @@ if [ ! -z ${DOT_ENABLE+x} ]; then
     echo "include: /etc/unbound/default.dot.conf" > $CFG_DIR/dot.conf
 fi
 
+# Create DoH config
+touch $CFG_DIR/doh.conf
+if [ ! -z ${DOH_ENABLE+x} ]; then
+    echo "include: /etc/unbound/default.doh.conf" > $CFG_DIR/doh.conf
+fi
+
 
 # Create forward zone config
 touch $CFG_DIR/forward-zone.conf
