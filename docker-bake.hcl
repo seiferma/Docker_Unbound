@@ -1,6 +1,6 @@
 variable "VERSION" {
   # renovate: datasource=repology depName=alpine_3_22/unbound versioning=loose
-  default = "1.23.0-r2"
+  default = "1.23.1-r0"
 }
 
 group "default" {
