@@ -25,7 +25,7 @@ fi
 
 # Create private domains config
 touch $CFG_DIR/private-domains.conf
-if [[ "$ENV_VAR_NAMES" == "PRIVATE_DOMAIN_"* ]]; then
+if [[ "$ENV_VAR_NAMES" == *"PRIVATE_DOMAIN_"* ]]; then
     for ENV_VAR_NAME in $ENV_VAR_NAMES; do
         if [[ $ENV_VAR_NAME == PRIVATE_DOMAIN_* ]]; then
             DOMAIN_SNIPPET="$DOMAIN_SNIPPET""private-domain: $(printenv $ENV_VAR_NAME)\n"
@@ -36,14 +36,14 @@ fi
 
 # Create forward zone config
 touch $CFG_DIR/forward-zone.conf
-if [[ "$ENV_VAR_NAMES" == "FORWARD_"* ]]; then
+if [[ "$ENV_VAR_NAMES" == *"FORWARD_"* ]]; then
     FORWARD_SNIPPET='forward-zone:\n\tname: "."'
     if [ ! -z ${FORWARD_IS_TLS+x} ]; then
         FORWARD_SNIPPET="$FORWARD_SNIPPET\n\tforward-ssl-upstream: yes"
     fi
     for ENV_VAR_NAME in $ENV_VAR_NAMES; do
         if [[ $ENV_VAR_NAME == FORWARD_ADDR_* ]]; then
-            FORWARD_SNIPPET="$FORWARD_SNIPPET\tforward-addr: $(printenv $ENV_VAR_NAME)\n"
+            FORWARD_SNIPPET="$FORWARD_SNIPPET""\n\tforward-addr: $(printenv $ENV_VAR_NAME)\n"
         fi
     done
     echo -e "$FORWARD_SNIPPET" > $CFG_DIR/forward-zone.conf
@@ -52,7 +52,7 @@ fi
 
 # Create access control config
 touch $CFG_DIR/access-control.conf
-if [[ "$ENV_VAR_NAMES" == "ACCESS_CONTROL_"* ]]; then
+if [[ "$ENV_VAR_NAMES" == *"ACCESS_CONTROL_"* ]]; then
     for ENV_VAR_NAME in $ENV_VAR_NAMES; do
         if [[ $ENV_VAR_NAME == ACCESS_CONTROL_* ]]; then
             ACL_SNIPPET="$ACL_SNIPPET""access-control: $(printenv $ENV_VAR_NAME)\n"
