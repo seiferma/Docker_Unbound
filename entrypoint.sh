@@ -23,6 +23,16 @@ if [ ! -z ${DOH_ENABLE+x} ]; then
     echo "include: /etc/unbound/default.doh.conf" > $CFG_DIR/doh.conf
 fi
 
+# Create private domains config
+touch $CFG_DIR/private-domains.conf
+if [[ "$ENV_VAR_NAMES" == "PRIVATE_DOMAIN_"* ]]; then
+    for ENV_VAR_NAME in $ENV_VAR_NAMES; do
+        if [[ $ENV_VAR_NAME == PRIVATE_DOMAIN_* ]]; then
+            DOMAIN_SNIPPET="$DOMAIN_SNIPPET""private-domain: $(printenv $ENV_VAR_NAME)\n"
+        fi
+    done
+    echo -e "$DOMAIN_SNIPPET" > $CFG_DIR/private-domains.conf
+fi
 
 # Create forward zone config
 touch $CFG_DIR/forward-zone.conf
