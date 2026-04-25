@@ -14,3 +14,13 @@ target "default" {
     VERSION = "${VERSION}"
   }
 }
+
+group "test" {
+  targets = ["test"]
+}
+
+target "test" {
+  inherits = ["default"]
+  platforms = ["linux/amd64"]
+  tags = ["test-image"]
+}
